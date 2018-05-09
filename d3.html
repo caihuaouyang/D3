@@ -297,8 +297,21 @@ h1{
 
 		}
 
+	</script>
 
-/** select and append
+	<h2> Question: What did you learn from the story?</h2>
+	<textarea rows="2" cols="50">
+	</textarea>
+	<form>
+		<input type="submit">
+	</form>
+
+	<script>
+		
+		d3.select("h2").style("color", "#CB4154");
+
+		/** the following is the unused code **/
+		/** select and append
 		d3.select("p").text("Hello World!");
 		
 		d3.select("body")
@@ -308,7 +321,7 @@ h1{
 		**/
 
 
-/** svg
+		/** svg
 		var circle = 
 		canvas.append("circle")
 		.attr("cx", 250)
@@ -332,7 +345,7 @@ h1{
 		**/
 
 
-/**	bar charts
+		/**	bar charts
 		var dataArray = [5, 40, 50, 60];
 		var width = 500;
 		var height = 500;
@@ -377,7 +390,7 @@ h1{
 		**/
 
 
-/** enter, exit and update
+		/** enter, exit and update
 		// DOM elements < data elements (enter)
 		// DOM elements > data elements (exit)
 		// DOM elements = data elements (update)
@@ -417,7 +430,7 @@ h1{
 		**/
 
 
-/** transition
+		/** transition
 		var canvas = 
 		d3.select("body")
 		.append("svg")
@@ -444,19 +457,6 @@ h1{
 		//.on("end", function() { d3.select(this).attr("fill", "red"); });
 		.on("start", function() { d3.select(this).attr("fill", "red"); });
 		**/
-
-	</script>
-
-	<h2> Question: What did you learn from the story?</h2>
-	<textarea rows="2" cols="50">
-	</textarea>
-	<form>
-		<input type="submit">
-	</form>
-
-	<script>
-		
-		d3.select("h2").style("color", "#CB4154");
 
 	</script>
 
