@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+	<title>D3 Animation</title>
+	<script src="https://d3js.org/d3.v5.min.js"></script>
+
+</head>
+
+<style>
+
+body{
+	background-color: lightgrey;
+	font-family: cursive;
+}	
+h1{
+	text-align: center;
+}
+
+</style>
+
+<body>
+
+
+
+	<h1>The Rabbit and the Turtle: A Moral Story for Kids</h1>
+
+	<script>
+		d3.select("h1")
+		.style("color", "#C46210")
+		.style("font-family", "");
+
+		/** svg1 **/
+		var canvas1 = 
+		d3.select("body")
+		.append("svg")
+		.attr("width", 1000)
+		.attr("height", 150);
+
+
+		function transition1() { 
+			var theme = 
+			canvas1.append("svg:image")
+			.attr("xlink:href", "https://www.moralstories.org/wp-content/uploads/2009/05/Rabbit-Turtle.jpg")
+			.attr("width", 360)
+			.attr("height", 150)
+			.attr("x", 320)     
+			.attr("y", 0)
+
+
+			var circle = 
+			canvas1.append("circle")
+			.attr("cx", 150)
+			.attr("cy", 50)
+			.attr("r", 50)
+			.attr("fill", "green");
+
+			var rect = 
+			canvas1.append("rect")
+			.attr("width", 100)
+			.attr("height", 100)
+			.attr("x", 780)
+			.attr("y", 0);
+
+			repeat();
+
+			function repeat() {	
+				theme.transition()
+				.duration(5000)
+				.delay(1000)
+				.style("opacity", "0.1")
+				.transition()
+				.duration(5000)
+				.delay(1000)
+				.style("opacity", "1")
+				.on("end", repeat);
+
+				circle.transition()
+				.duration(5000)
+				.delay(1000)
+				.style("opacity", "0.7")
+				.transition()
+				.duration(5000)
+				.delay(1000)
+				.style("opacity", "1")
+				.on("end", repeat);
+
+				rect.transition()
+				.duration(5000)
+				.delay(1000)
+				.style("opacity", "0.5")
+				.transition()
+				.duration(5000)
+				.delay(1000)
+				.style("opacity", "1")
+				.on("end", repeat);
+			}
+		}
+
+		transition1();
+
+
+		/** svg2 **/
+		var canvas2 = 
+		d3.select("body")
+		.append("svg")
+		.attr("width", 1000)
+		.attr("height", 150)
+		.attr("id", "para");
+
+		var dataArray = [0, 10, 20, 30, 40, 50, 60, 70, 80, 90];
+
+		var widthScale = 
+		d3.scaleLinear()
+		.domain([0, 100])
+		.range([0, 1000]);
+
+		var color =
+		d3.scaleLinear()
+		.domain([0, 100])
+		.range(["powderblue", "#00308F"]);
+
+		canvas2.selectAll("rect")
+		.data(dataArray)
+		.enter()
+		.append("rect")
+		.attr("width", 100 )
+		.attr("height", 150)
+		.attr("fill", function(d) { return color(d) })
+		.attr("x", function(d, i) { return i * 100 });
+
+		var text = 
+		canvas2.append("text")
+		.attr("x", 0)     
+		.attr("y", 75)
+		.text("Click here to read the full story")
+		.style("font-size", "32");
+
+		var i = 0;
+		var data = [
+		"One day a rabbit was boasting about how fast he could run.",
+		"He was laughing at the turtle for being so slow.",
+		"Much to the rabbit’s surprise, the turtle challenged him to a race.",
+		"The rabbit thought this was a good joke and accepted the challenge.",
+		"The fox was to be the umpire of the race.",
+		"As the race began, the rabbit raced way ahead of the turtle.",
+		"The rabbit got to the halfway point and could not see the turtle anywhere.",
+		"He was hot and tired and decided to stop and take a short nap.",
+		"Even if the turtle passed him, he would race to the finish line ahead of him.",
+		"All this time the turtle kept walking step by step by step.",
+		"He never quit no matter how hot or tired he got. He just kept going.",
+		"However, the rabbit slept longer than he had thought and woke up.",
+		"He could not see the turtle anywhere!",
+		"He went at full speed but found the turtle there waiting for him.",
+
+		];
+
+		d3.select("#para").on("mousedown", function() {textTransition()} );
+
+		function textTransition() {
+			d3.select("text").transition()
+			.duration(100)
+			.style("font-size", "1px")
+			.transition()
+			.duration(100)
+			.text(data[i])
+			.style("font-size", "32px");
+			i = i + 1;
+		}
+
+
+		/** svg3 **/
+		var canvas3 = 
+		d3.select("body")
+		.append("svg")
+		.attr("width", 1000)
+		.attr("height", 150)
+		.attr("id", "race");
+
+		d3.select("#race").on("mousedown", function() { transition2() } );
+
+		var text2 = 
+		canvas3.append("text")
+		.attr("x", 0)     
+		.attr("y", 75)
+		.text("Click here to see the animation")
+		.style("font-size", "32");
+
+
+		function transition2() { 
+			var line1 = 
+			canvas3.append("line")
+			.attr("x1", 0)
+			.attr("y1", 0)
+			.attr("x2", 1000)
+			.attr("y2", 0)
+			.attr("stroke", "green")
+			.attr("stroke-width", 10);
+
+			var line2 = 
+			canvas3.append("line")
+			.attr("x1", 0)
+			.attr("y1", 150)
+			.attr("x2", 1000)
+			.attr("y2", 150)
+			.attr("stroke", "green")
+			.attr("stroke-width", 10);
+
+
+			var rect =
+			canvas3.append("rect")
+			.attr("width", 1000)
+			.attr("height", 140)
+			.attr("fill", "orange")
+			.attr("transform", "translate(0,5)");
+
+			var finishLine =
+			canvas3.append("line")
+			.attr("x1", 900)
+			.attr("y1", 0)
+			.attr("x2", 900)
+			.attr("y2", 150)
+			.attr("stroke", "red")
+			.attr("stroke-width", 10);
+
+			var text =
+			canvas3.append("text")
+			.attr("x", 910)
+			.attr("y", 140)
+			.text("Finish Line")
+			.style("font-size", "16")
+			.attr("fill", "white");
+
+
+			var tree = 
+			canvas3.append("svg:image")
+			.attr("xlink:href", "https://1.bp.blogspot.com/-qU4fh4WytiU/VxZREx1d9hI/AAAAAAAAAM0/OFusM10I_7otUJlPQ43otnLvsqnkB2zfwCLcB/s1600/tree.gif")
+			.attr("width", 250)
+			.attr("height", 50)
+			.attr("x", 340)     
+			.attr("y", 0);
+
+
+			var rabbit = 
+			canvas3.append("svg:image")
+			.attr("xlink:href", "http://www.neatorama.com/wp-content/uploads/2010/11/bugs-bunnyreclining-499x367.jpg")
+			.attr("width", 250)
+			.attr("height", 50)
+			.attr("x", -100)     
+			.attr("y", 0);
+
+			var turtle = 
+			canvas3.append("svg:image")
+			.attr("xlink:href", "http://t0.rbxcdn.com/3ef95fbf9ef81e6171da42a961235a52")
+			.attr("width", 250)
+			.attr("height", 50)
+			.attr("x", -100)     
+			.attr("y", 100)
+
+			repeat();
+
+			function repeat() {	
+
+				rabbit.attr("x", -100)     
+				.attr("y", 0);
+				rabbit.transition()
+				.duration(10000)
+				.attr("x", 400)
+				.transition()
+				.delay(15000)
+				.duration(10000)
+				.attr("x", 800)
+				.on("end", repeat);
+
+				turtle.attr("x", -100)     
+				.attr("y", 100)
+				turtle.transition()
+				.duration(30000)
+				.attr("x", 800)
+				.transition()
+				.duration(5000)
+				.attr("x", 800)
+				.on("end", repeat);
+
+			}
+			var widthScale = 
+			d3.scaleLinear()
+			.domain([0, 100])
+			.range([0, 900]);
+
+			var axis =
+			d3.axisBottom(widthScale)
+			.ticks(10);
+
+			canvas3.style( "stroke-width", 5).call(axis);
+
+		}
+
+
+/** select and append
+		d3.select("p").text("Hello World!");
+		
+		d3.select("body")
+		.append("p")
+		.style("color","red")
+		.text("Say Hi Again");
+		**/
+
+
+/** svg
+		var circle = 
+		canvas.append("circle")
+		.attr("cx", 250)
+		.attr("cy", 250)
+		.attr("r", 50)
+		.attr("fill", "red");
+
+		var rect =
+		canvas.append("rect")
+		.attr("width", 100)
+		.attr("height", 50);
+
+		var line = 
+		canvas.append("line")
+		.attr("x1", 0)
+		.attr("y1", 100)
+		.attr("x2", 400)
+		.attr("y2", 400)
+		.attr("stroke", "green")
+		.attr("stroke-width", 10);
+		**/
+
+
+/**	bar charts
+		var dataArray = [5, 40, 50, 60];
+		var width = 500;
+		var height = 500;
+
+		var widthScale = 
+		d3.scaleLinear()
+		.domain([0, 60])
+		.range([0, width]);
+
+		var color =
+		d3.scaleLinear()
+		.domain([0, 60])
+		.range(["red", "blue"]);
+
+		var axis =
+		d3.axisBottom(widthScale)
+		.ticks(5);
+
+		var canvas = 
+		d3.select("body")
+		.append("svg")
+		.attr("width", width)
+		.attr("height", height)
+		.append("g")
+		.attr("transform", "translate(20,0)")
+		//.call(axis);
+
+		var bars = 
+		canvas.selectAll("rect")
+		.data(dataArray)
+		.enter()
+		.append("rect")
+		.attr("width", function(d) { return widthScale(d) })
+		.attr("height", 50)
+		//.attr("fill", "red")
+		.attr("fill", function(d) { return color(d) })
+		.attr("y", function(d, i) { return i * 100 });
+
+		canvas.append("g")
+		.attr("transform", "translate(0,400)")
+		.call(axis);
+		**/
+
+
+/** enter, exit and update
+		// DOM elements < data elements (enter)
+		// DOM elements > data elements (exit)
+		// DOM elements = data elements (update)
+		var data = [10];
+
+		var canvas = 
+		d3.select("body")
+		.append("svg")
+		.attr("width", 500)
+		.attr("height", 500);
+
+		var circle1 = 
+		canvas.append("circle")
+		.attr("cx", 50)
+		.attr("cy", 100)
+		.attr("r", 25);
+
+		var circle2 = 
+		canvas.append("circle")
+		.attr("cx", 50)
+		.attr("cy", 200)
+		.attr("r", 25);
+
+		var circles = 
+		canvas.selectAll("circle")
+		.data(data)
+		// .attr("fill", "red")
+		// .enter()
+		// .append("circle")
+		// .attr("cx", 50)
+		// .attr("cy", 50)
+		// .attr("fill", "green")
+		// .attr("r", 25);
+		.attr("fill","green")
+		.exit()
+		.attr("fill", "blue");
+		**/
+
+
+/** transition
+		var canvas = 
+		d3.select("body")
+		.append("svg")
+		.attr("width", 500)
+		.attr("height", 500);
+
+
+		var circle = 
+		canvas.append("circle")
+		.attr("cx", 50)
+		.attr("cy", 50)
+		.attr("r", 25);
+
+		circle.transition()
+		.duration(1500)
+		.delay(1000)
+		.attr("cx", 150)
+		// .attr("fill", "red")
+		//.attr("cy", 400);
+		// .transition()
+		// .attr("cy", 200)
+		// .transition()
+		// .attr("cx", 50);
+		//.on("end", function() { d3.select(this).attr("fill", "red"); });
+		.on("start", function() { d3.select(this).attr("fill", "red"); });
+		**/
+
+	</script>
+
+	<h2> Question: What did you learn from the story?</h2>
+	<textarea rows="2" cols="50">
+	</textarea>
+	<form>
+		<input type="submit">
+	</form>
+
+	<script>
+		
+		d3.select("h2").style("color", "#CB4154");
+
+	</script>
+
+</body>
+
+</html>
